@@ -1,9 +1,11 @@
-FROM python:2.7.15-slim
+FROM python:3.9.6-slim
 
-COPY requirements.txt /tmp/
-RUN cd /tmp/ && pip install -r requirements.txt && rm /tmp/requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
+RUN apt-get update
+RUN apt-get -y install gcc
+RUN pip install biopython
 
-COPY *.py /work/
-WORKDIR /work
-
-CMD ["/bin/bash"]
+COPY generate_zotu_ref1.py generate_zotu_ref1.py
+COPY SRR1502226_zotus_final.fa SRR1502226_zotus_final.fa
+ENTRYPOINT ["python", "generate_zotu_ref1.py"]
