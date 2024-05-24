@@ -12,24 +12,20 @@
 
 ## Script List
 
-### **Script1**
-
-- **name**: generate_zotu_ref1.py
-- **description**: generate_zotu_ref1.py allows to generate a reference file from a FASTA format and appends attributes which can be used as a template to upload to the Entity ZOTU of MDDB.
-
-### **Script2**
-
-- **name**: update_ref_map.py
-- **description**: update_ref_map.py allows to update the ZOTU reference file with new ZOTUs and keeps track of existing ZOTUs detected in reference
-
 *pre-requirement*
 
 Please note that startPROFUNGIS.py of [PROFUNGIS](https://github.com/naturalis/mycodiversity/tree/master/PROFUNGIS) is the first code of the mycodiversity pipeline set. This code needs to be launched before using the input post-processing input files.
 PROFUNGIS output fasta files are the inputs for updating MDDB tables refseq ZOTU and contains (ZOTU - sample mapping)
 
-**How they work**
 
-**Script1 Inputs**
+### **Script1**
+
+- **name**: generate_zotu_ref1.py
+- **description**: generate_zotu_ref1.py allows to generate a reference file from a FASTA format and appends attributes which can be used as a template to upload to the Entity ZOTU of MDDB.
+
+**What it does**
+
+**Input**
 - Arguments
   - arg1 : FASTA file (.fa)
   - arg2 : requests if the user would like to generate primary keys for the FASTA sequences ("Y"/"N")
@@ -43,29 +39,31 @@ the sequence belonging to the ITS2 marker in this case
 ```shell
 python3 generate_zotu_ref1.py 
 ```
+
 A relationship table is also created in which the following mapping is stored: 
 Attribute list:
 - SRR_name : SRR id reference
 - ZOTU_label : ID for ZOTU sequence
 - ZOTU_PK : Primary key assigned to the Zotu label
 
-```shell
-python3 generate_zotu_ref1.py 
-```
+### **Script2**
 
+- **name**: update_ref_map.py
+- **description**: update_ref_map.py allows to update the ZOTU reference file with new ZOTUs and keeps track of existing ZOTUs detected in reference
 
-  **update_ref_map.py**
+**What it does**
 
-This script can be run sequentially to a reference ZOTU file generated (for example by launching generate_zotu_ref1.py), 
+This script can be run sequentially to a reference ZOTU file generated (i.e. by launching <generate_zotu_ref1.py>), 
 as it updates and traces existing ZOTU sequences (ZOTU detected).
-This version of the script requests one FASTA argument from the user (string)
-Update: option str <fasta.fa filename> or list of fasta <fasta_list.txt filename>
 
-In input a ZOTU reference file is provided, this is usually generated as a dump of the existing 
-MDDB existing ZOTU reference table. 
-Also the previous tracker is initially provided, such to update and keep track with how many
-new ZOTU sequences will be generated as reference.
+**Input**
+- Arguments : requests one FASTA argument from the user.
+  - it accepts a FASTA file (.fa) that contains the FASTA sequences
+- Requirements :
+  - a ZOTU reference file must be provided. This can be obtained for example by dumping a MDDB ZOTU fasta file for instance.
+  - previous tracker of mapping reference. This is used to keep track with how many new ZOTU sequences will be generated as reference and which ones become new ZOTUs.
 
+A relational table is also generated to keep a mapping RefZOTU - NewZOTU in the following attribute list:
 The script also generates a mapping RefZOTU - NewZOTU in the following format:  
 SRR id | Zotu label | Primary key of ref ZOTU
 and assigns new primary keys to the new ZOTUs not detected as a reference ZOTU, else provides the mapping of ZOTUs which have been already detected
