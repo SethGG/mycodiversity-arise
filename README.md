@@ -1,5 +1,5 @@
 # mycodiversity
-Pipelines for analyzing fungal diversity data
+Pipelines for analysing fungal diversity data
 
 ## repository structure
 The repository is structured as followed:
