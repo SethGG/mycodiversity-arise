@@ -119,15 +119,23 @@ update_ref_map.py
 
 1. Clone this repository. For instructions how to clone repositories you can find here [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
 
-2. Docker provides Docker Desktop, which is a handy interface to create images and install the container. Below i give the commands for running on the terminal. The *docker* term is used for this. 
+2. Start Docker. Docker application also provides Docker Desktop, which is a handy interface to create images and install the container. Below i give the commands for running on the terminal. I run the docker in the same path I cloned the repository, else make sure you know the PATH of where you cloned the repository. The *docker* term is used for running commands. 
 
-3. 
+3. Build a Docker image. Provide a name for your image so you can refer to it later. To build an image, use the build command of docker. 
 
 ```shell
-python3 update_ref_map.py <srr_filename.fa> <RefZOTU.csv> <mapping.csv>
+docker build -t image-post_processing .  
 ```
 
+where image-post_processing is the name of the image
 
+4. Run the container by using the image you created in step 3.
+
+```shell
+docker run image-post_processing SRR1502226_zotus_final.fa Y 
+```
+
+Because the DOCKER file contains running python incorporated, this means that only the parameters required are necessary to run the script. In this case, the fasta file and if you want to have generate the primary keys for your DNA sequences. 
 
 ### OUTPUTS
 
