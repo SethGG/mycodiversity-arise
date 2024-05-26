@@ -135,7 +135,8 @@ where image-post_processing is the name of the image
 docker run image-post_processing SRR1502226_zotus_final.fa Y 
 ```
 
-Because the DOCKER file contains running python incorporated, this means that only the parameters required are necessary to run the script. In this case, the fasta file and if you want to have generate the primary keys for your DNA sequences. 
+Because the DOCKER file contains the entrypoint for running the python script, this means that only the parameters required are necessary to run the script. In this case, the fasta file and if you want to have generate the primary keys for your DNA sequences. 
+If no fasta file was generated with the startPROFUNGIS pipeline, one can always use FASTA files found in this repo [test_zotu](). 
 
 ### OUTPUTS
 
@@ -157,6 +158,12 @@ outputs:
 	>otu_seq_mapping_to_update.csv -> provides the table format of the new ZOTUs coming in for update
 	>record_track.csv -> updates the tracker of how many reference ZOTUs have been generated from the new FASTA
 	>refseq_table_pk.csv -> the updated ZOTU list with new PK generated if new ZOTU was detected
+
+Note that if you want to access this output by running the docker, you can access it in a mounted directory. Here we provide an instruction on how to provide a mounted directory for accessing the output files. 
+
+```shell
+docker run  --rm -v $(pwd)/input_data:/data image-post_processing SRR1502226_zotus_final.fa Y 
+```
 
 
 
