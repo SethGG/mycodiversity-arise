@@ -94,9 +94,18 @@ the mandatory arguments are:
 | -maxEE | -E | maximal estimated error [float] | expected error |
 | -minOverlap | -o | minimal overlap in read merging [int] | number of basepairs for the minimal overlap |
 | -minLen | -L | minimal length filter [int] | minimal length in basepairs for filter |
-| -outdire | -O | output directory [String] | provide the path of the output directory to use for saving files |
+| -outdir | -O | output directory [String] | provide the path of the output directory to use for saving files |
 | -local | -l | none [Flag] |  |
 
+when the optional parameters are not provided, here are the values that the pipeline uses:
+- maxEE: mean EE (1.0)
+- minOverlap: 60 bp
+- minLen: 100 bp
+- outdir: current date and time (values used to generate the dir path, ISO date)
+- local: False
+
+These values are experimentally selected, either during development or by previous studies, thus it is recommended to provide the mandatory only, and stick to the optional values.
+The local flag can be added when the reads are already downloaded. In order for the pipleine to use these reads, they need to be placed in the directory "./samples/[sample_name]/[sample_name].fastq" or both paired end files in the case of illumina platform generated.
 
 
 **Running the pipeline** 
@@ -123,7 +132,68 @@ GCTGCGTTCTTCATCGATG
 ```
 for the reverse primer, labelled ExampleRev. This primer is used for ITS1 barcode of ITS.
 
-These primers will be added to the datafile and you can refer to them with *ExampleFwd* and *ExampleRev*. 
+These primers will be added to the datafile and you can refer to them with *ExampleFwd* and *ExampleRev*.
+
+### PROFUNGIS_post_processing docker steps - helping to run the scripts in your own machine
+
+## Pre-requirements for running the post_processing container
+
+1. install Docker: [Docker installation](https://docs.docker.com/get-docker/). This main page contains instructions for *Windows*, *OS mac* and *Linux*.
+2. have a GitHub account.
+
+## Run docker steps
+
+1. Clone this repository. For instructions how to clone repositories you can find here [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
+2. Start Docker. Docker application also provides Docker Desktop, which is a handy interface to create images and install the container. Below i give the commands for running on the terminal. I run the docker in the same path I cloned the repository, else make sure you know the PATH of where you cloned the repository. The *docker* term is used for running commands. 
+
+3. Build a Docker image. Provide a name for your image so you can refer to it later. To build an image, use the build command of docker. 
+
+```shell
+docker build -t image-post_processing .  
+```
+
+where image-post_processing is the name of the image
+
+4. Run the container by using the image you created in step 3.
+
+```shell
+docker run image-post_processing SRR1502226_zotus_final.fa Y 
+```
+
+Because the DOCKER file contains the entrypoint for running the python script, this means that only the parameters required are necessary to run the script. In this case, the fasta file and if you want to have generate the primary keys for your DNA sequences. 
+If no fasta file was generated with the startPROFUNGIS pipeline, one can always use FASTA files found in this repo [test_zotu](). 
+
+### OUTPUTS
+
+The output directory contains several folders with intermediate products.
+The present folders are:
+
+1. filtered
+2. merged
+3. qual_filter
+4. dereplicated
+5. ZOTUS
+6. FINAL
+7. log
+
+Placed in the order that they are created sequentially during the pipeline.
+- The **"filtered"** folder contains the reads after primer filtering.
+- The **"merged"** folder contains the merged reads. When the pipeline decided not to merge (or a pyrosequencing platform) is selected, the reads file in this folder is identical to that in the "filtered" folder. 
+- The **"qual_filter"** folder contains the EE report and the reads that are filtered after this EE has been established.
+- The **"dereplicated"** folder contains the reads after dereplication.
+- The "ZOTUS" folder contains the final results of the pipeline: the ZOTU fasta and table files.
+- The "log" directory contains the error logs for each of the previous mentioned steps.
+
+**Subfolders**
+*important note* as this will be important for the sequential pipelines to use.
+Within the ZOTUS folder, there are two subdirectories. 
+- In the main **"ZOTUS"** subdirectory, the initially generated ZOTUS
+and ZOTU table can be found. 
+- In the **"abundant"** folder, the ZOTUS are stored after the abundance filter. 
+- In the **"FINAL"** folder, the final results of the pipeline are stored: the fasta file containing all fungal ITS ZOTUS and a txt file containing the table with read counts per ZOTU.
+
+
 
 
 
