@@ -4,6 +4,7 @@ Processing of Fungal ITS Sequences
 This pipeline has been created to download SRA studies of fungal ITS markers that will be used to construct a unique set of Z(ero radiance) OTUS to analyse fungal diversity.
 
 ## Installing PROFUNGIS
+
 Install before usage:
   - Snakemake
   - BLAST+
@@ -133,6 +134,7 @@ GCTGCGTTCTTCATCGATG
 for the reverse primer, labelled ExampleRev. This primer is used for ITS1 barcode of ITS.
 
 These primers will be added to the datafile and you can refer to them with *ExampleFwd* and *ExampleRev*.
+You can always check the [primer.data](https://github.com/naturalis/mycodiversity/blob/master/PROFUNGIS/deps/primer.data) file containing the list of primers and if the primers you are considering are listerd already. 
 
 ### PROFUNGIS_post_processing docker steps - helping to run the scripts in your own machine
 
