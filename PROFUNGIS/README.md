@@ -115,6 +115,8 @@ Directory contains dependencies for PROFUNGIS
 
 2. Run PROFUNGIS pipeline. In order to start, please launch startPROFUNGIS.py script. Please make sure you provide the correct arguments.
 
+## PARAMETERS FOR PROFUNGIS
+
 **List of mandatory parameters**
 
 the mandatory arguments are:
@@ -175,9 +177,9 @@ for the reverse primer, labelled ExampleRev. This primer is used for ITS1 barcod
 These primers will be added to the datafile and you can refer to them with *ExampleFwd* and *ExampleRev*.
 You can always check the [primer.data](https://github.com/naturalis/mycodiversity/blob/master/PROFUNGIS/deps/primer.data) file containing the list of primers and if the primers you are considering are listerd already. 
 
-### PROFUNGIS_post_processing docker steps - helping to run the scripts in your own machine
+### PROFUNGIS docker steps - helping to run PROFUNGIS on your own machine
 
-## Pre-requirements for running the post_processing container
+## Pre-requirements for running the a startPROFUNGIS container
 
 1. install Docker: [Docker installation](https://docs.docker.com/get-docker/). This main page contains instructions for *Windows*, *OS mac* and *Linux*.
 2. have a GitHub account.
@@ -188,22 +190,23 @@ You can always check the [primer.data](https://github.com/naturalis/mycodiversit
 
 2. Start Docker. Docker application also provides Docker Desktop, which is a handy interface to create images and install the container. Below i give the commands for running on the terminal. I run the docker in the same path I cloned the repository, else make sure you know the PATH of where you cloned the repository. The *docker* term is used for running commands. 
 
-3. Build a Docker image. Provide a name for your image so you can refer to it later. To build an image, use the build command of docker. 
+3. Build a Docker image. Provide a name for your image so you can refer to it later. To build an image, use the build command of docker.
+Note that the Dockerfile takes into account the mandatory dependendies for you.
+
+Please note that for the running commands below, the script takes into account only the MANDATORY parameters. It does not include the OPTIONAL parameters. Please read above the section of PARAMETERS OF PROFUNGIS to see below what we refer to. Additionally, for this example, we provide forward and reverse primers that are not in the primer.data list. This will show how to update the primer.data list by including more primer sequence references. 
 
 ```shell
-docker build -t image-post_processing .  
+docker build -t image001-startPROFUNGIS .  
 ```
+where image001-startPROFUNGIS is the name of your image
 
-where image-post_processing is the name of the image
-
-4. Run the container by using the image you created in step 3.
+4. Run the container by using the image you created in step 3. 
 
 ```shell
-docker run image-post_processing SRR1502226_zotus_final.fa Y 
+docker run image001-startPROFUNGIS python startPROFUNGIS.py -f ExampleF -r ExampleR -p illumina -m multirun_acc.txt
 ```
 
-Because the DOCKER file contains the entrypoint for running the python script, this means that only the parameters required are necessary to run the script. In this case, the fasta file and if you want to have generate the primary keys for your DNA sequences. 
-If no fasta file was generated with the startPROFUNGIS pipeline, one can always use FASTA files found in this repo [test_zotu](). 
+the PROFUNGIS Dockerfile specifies that this is a python dependent script, and the python command is required before listing the mandatory arguments.  
 
 ### OUTPUTS
 
