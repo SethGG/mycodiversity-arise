@@ -159,10 +159,10 @@ outputs:
 	>record_track.csv -> updates the tracker of how many reference ZOTUs have been generated from the new FASTA
 	>refseq_table_pk.csv -> the updated ZOTU list with new PK generated if new ZOTU was detected
 
-Note that if you want to access this output by running the docker, you can access it in a mounted directory. Here we provide an instruction on how to provide a mounted directory for accessing the output files. 
+Note that if you want to access this output by running the docker, you can access it in a mounted directory. Here we provide an instruction on how to provide a mounted directory for accessing the output files (the output will be stored in the output_data folder, wheere you can access them locally in your input_data folder 
 
 ```shell
-docker run  --rm -v $(pwd)/input_data:/data image-post_processing SRR1502226_zotus_final.fa Y 
+docker run  --rm -v $(pwd)/input_data:/ouput_data image-post_processing SRR1502226_zotus_final.fa Y 
 ```
 
 
