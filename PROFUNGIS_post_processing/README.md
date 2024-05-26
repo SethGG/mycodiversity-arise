@@ -91,7 +91,7 @@ where	<srr_filename.fa> -- is the next (new) processed ZOTU file (FASTA format) 
 		(ex: generate_zotu_ref1.py <newfasta.fa> <refseq_table_pk.csv> <mapping_table_pk_zotu_srr.csv>)
 
  
-### Requirements
+### Requirements for scripts
 
 - generate_zotu_ref1.py
 	- csv
@@ -108,7 +108,26 @@ update_ref_map.py
 
 - *note that the pandas library version used can be found in the requirements.txt file provided in this folder.*
 
-### PROFUNGIS_post_processing docker steps
+### PROFUNGIS_post_processing docker steps - helping to run the scripts in your own machine
+
+## Pre-requirements for running the post_processing container
+
+1. install Docker: [Docker installation](https://docs.docker.com/get-docker/). This main page contains instructions for *Windows*, *OS mac* and *Linux*.
+2. have a GitHub account.
+
+## Run docker steps
+
+1. Clone this repository. For instructions how to clone repositories you can find here [clone](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)
+
+2. Docker provides Docker Desktop, which is a handy interface to create images and install the container. Below i give the commands for running on the terminal. The *docker* term is used for this. 
+
+3. 
+
+```shell
+python3 update_ref_map.py <srr_filename.fa> <RefZOTU.csv> <mapping.csv>
+```
+
+
 
 ### OUTPUTS
 
