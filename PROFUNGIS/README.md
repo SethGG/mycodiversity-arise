@@ -68,11 +68,50 @@ not, it is removed.
 ## How to run PROFUNGIS
 
 1. check dependencies
-   
+
 ```shell
 bash checkDependencies . sh
 ```
 Continue if there are no errors. If everything is in place, you can start using PROFUNGIS pipeline. 
+
+PROFUNGIS is dependent on several other tools. Please check the ./deps/folder to view the list. 
+
+The tools that are provided are:
+
+1. cutadapt (used in cutting primers)
+2. faSomeRecords (used to select specific fasta sequences)
+3. flash (used to merge paired-end reads)
+4. primer.data (datafile containing primers)
+5. sratoolkit (used to download SRA entries)
+6. Trimmomatic (used to decide whether or not to merge)
+7. UNITE (used to filter for contamination)
+8. vsearch (used to dereplicate)
+
+The tools that need to be installed. See Dockerfile and documentation as this can be done for you.
+
+1. Python 3
+2. Snakemake
+3. BLAST+
+4. usearch 11 (used for denoising)
+
+*please note that USEARCH has a personal license. The personal license was removed in this public repository. In order to use the pipeline, you need to download the executable, rename it to "usearch11" and place it in the ./deps/ directory. 
+
+
+
+
+```shell
+bash checkDependencies . sh
+```
+Continue if there are no errors. If everything is in place, you can start using PROFUNGIS pipeline. 
+
+
+Directory contains dependencies for PROFUNGIS
+-cutadapt
+-flash
+-Trimmomatic
+-faSomeRecords
+-fasterq-dump
+-vsearch
 
 2. Run PROFUNGIS pipeline. In order to start, please launch startPROFUNGIS.py script. Please make sure you provide the correct arguments.
 
