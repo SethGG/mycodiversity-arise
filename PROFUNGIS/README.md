@@ -75,14 +75,22 @@ Continue if there are no errors. If everything is in place, you can start using 
 
 2. Run PROFUNGIS pipeline. In order to start, please launch startPROFUNGIS.py script. Please make sure you provide the correct arguments.
 
-** arguments **
+** List of mandatory parameters **
 
 the mandatory arguments are:
-- name of the forward primer
-- name of the reverse primer
-- the platform used
-- at lease one SRA id. Please note that it can also be a list of SRA read accession IDs, provided in a txt file.
 
+| Name | acronym used for pipeline | expected input | definition |
+| ---- | ---- | ----- | ----- |
+| -forward | -f | primer name [String] | label of forward primer to refer to |
+| -reverse | -r | primer name [String] | label of reverse primer to refer to |
+| -platform | -p | platform name [illumina|454|iontorrent] | HTS plaform used for generating the read sequence file |
+| -SRA | -s | one SRA id [String] | SRA sequence read ID (aka SRR) |
+| -multirun | -m | file containg SRA ids | a list of SRRs provided in a .txt file |
+
+** run the script** 
+
+In order to run the pipeline, the mandatory arguments are required. This is for running via commandline. See below how to run the scripts in a docker environment. 
+The list follows the order of arguments to pass to PROFUNGIS. 
 Here we provide an example of running startPROFUNGIS.py with SRA read ID : SRR2002283. This ID is a public SRR obtained from NCBI SRA. Please note that to run startPROFUNGIS.py, you do not need to download the raw sequence files from SRA, this pipeline will do it for you by providing the reference ID.
 
 ```shell
