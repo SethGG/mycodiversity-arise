@@ -88,5 +88,20 @@ Here we provide an example of running startPROFUNGIS.py with SRA read ID : SRR20
 ```shell
 python3 startPROFUNGIS . py --forward ExampleFwd -- reverse ExampleRev --platform illumina --SRA SRR2002283
 ```
+The pipeline will read the primer names provided for the forward and reverse primers. These sequences are provided in the primer dataset (primers.py). If the script does not find them, the primers will be generated and saved for you. This is the case if you run for the first time this script. This means that ExamplePwd and ExampleRev are not in the primer file, thus the script will request for you to add them.
+For running the first time, you can use and add the following primers:
+
+```shell
+CTTGGTCATTTAGAGGAAGTA 
+```
+for the forward primer. You will need to provide a primer label for this sequence, so you can refer to when running the scripts. In this case we can use the example label: ExampleFwd. This primer belongs to the ITS1 barcode is used.
+
+```shell
+GCTGCGTTCTTCATCGATG 
+```
+for the reverse primer, labelled ExampleRev. This primer is used for ITS1 barcode of ITS.
+
+These primers will be added to the datafile and you can refer to them with *ExampleFwd* and *ExampleRev*. 
+
 
 
