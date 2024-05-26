@@ -75,7 +75,7 @@ Continue if there are no errors. If everything is in place, you can start using 
 
 2. Run PROFUNGIS pipeline. In order to start, please launch startPROFUNGIS.py script. Please make sure you provide the correct arguments.
 
-** List of mandatory parameters **
+**List of mandatory parameters**
 
 the mandatory arguments are:
 
@@ -87,10 +87,24 @@ the mandatory arguments are:
 | -SRA | -s | one SRA id [String] | SRA sequence read ID (aka SRR) |
 | -multirun | -m | file containg SRA ids | a list of SRRs provided in a .txt file |
 
-** run the script** 
+**List of Optional parameters**
+
+| Name | acronym used for pipeline | expected input | definition |
+| ---- | ---- | ----- | ----- |
+| -maxEE | -E | maximal estimated error [float] | expected error |
+| -minOverlap | -o | minimal overlap in read merging [int] | number of basepairs for the minimal overlap |
+| -minLen | -L | minimal length filter [int] | minimal length in basepairs for filter |
+| -outdire | -O | output directory [String] | provide the path of the output directory to use for saving files |
+| -local | -l | none [Flag] |  |
+
+
+
+**Running the pipeline** 
 
 In order to run the pipeline, the mandatory arguments are required. This is for running via commandline. See below how to run the scripts in a docker environment. 
 The list follows the order of arguments to pass to PROFUNGIS. 
+
+
 Here we provide an example of running startPROFUNGIS.py with SRA read ID : SRR2002283. This ID is a public SRR obtained from NCBI SRA. Please note that to run startPROFUNGIS.py, you do not need to download the raw sequence files from SRA, this pipeline will do it for you by providing the reference ID.
 
 ```shell
