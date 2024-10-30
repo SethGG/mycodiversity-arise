@@ -204,7 +204,7 @@ def main():
     with open('config.yml','w') as outfile:
         outfile.write(config)
 
-    subprocess.call(["snakemake"])
+    subprocess.call(["snakemake", "-c1"])
 
 
 if __name__ == "__main__":

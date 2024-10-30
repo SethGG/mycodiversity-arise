@@ -1,0 +1,8 @@
+ARISE_data
+PROFUNGIS/samples
+__pycache__
+venv
+PROFUNGIS/config*.yml
+PROFUNGIS/sample_list.txt
+PROFUNGIS/log.txt
+usearch11
