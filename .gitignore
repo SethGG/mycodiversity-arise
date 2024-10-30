@@ -6,3 +6,5 @@ PROFUNGIS/config*.yml
 PROFUNGIS/sample_list.txt
 PROFUNGIS/log.txt
 usearch11
+PROFUNGIS/*_output
+.snakemake
