@@ -22,7 +22,7 @@ rule filter_primers:
         platform=lambda wildcards: config["params"]["platform"],
         reversereads=lambda wildcards: functions.getReads(config["samples"][wildcards.sample],config["params"]["platform"],2)
     output:
-        R1_out="{outdir}/filtered/{sample}_R1_filt.fastq",
+        R1_out=temp("{outdir}/filtered/{sample}_R1_filt.fastq"),
         R2_out="{outdir}/filtered/{sample}_R2_filt.fastq"
     log:
         "{outdir}/log/filter_primers/{sample}_error.log"
@@ -64,6 +64,7 @@ rule merge_reads:
                 print("Your reverse reads are bad, I will only use your forward reads\nPlease note that the file name will still be 'merged' (\\\TODO v.03)")
                 shell("cp {input.R1} {output}")
                 shell("echo Your reverse reads were not used, no merging was done. Please see the documentation for more information > {log}")
+            shell("rm {params.revreads}")
         # if pyrosequencer is used, reads can't be merged
         # In stead of merging, amplicons with only ITS1 or ITS2 will be
         # Truncated to 250bp

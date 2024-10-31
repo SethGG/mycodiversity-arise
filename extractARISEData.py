@@ -37,37 +37,46 @@ def verify_checksum(md5_file, directory):
         print("All files match their checksums.")
 
 
-def extract_and_organize(input_dir, output_dir, sample_list):
-    pattern = re.compile(r"^(.*-\d+).*_(R[12])_.*\.fastq\.gz$")
+def extract_and_organize(input_dir, output_dir, sample_list_dir):
+    pattern = re.compile(r"^e\d+?_(NBCLAB\d+?)_.+?_([A-Z])_.+?_(R[12])_.+?\.fastq\.gz$")
 
-    with open(sample_list, 'w') as sample_list:
-        seen_samples = set()
-        for filename in sorted(os.listdir(input_dir)):
-            match = pattern.match(filename)
-            if match:
-                sample_name, orient = match.groups()
+    seen_samples = set()
+    sample_list = {}
+    for filename in sorted(os.listdir(input_dir)):
+        match = pattern.match(filename)
+        if match:
+            sample_name, location, orient = match.groups()
 
-                sample_dir = os.path.join(output_dir, sample_name)
-                os.makedirs(sample_dir, exist_ok=True)
+            sample_dir = os.path.join(output_dir, sample_name)
+            os.makedirs(sample_dir, exist_ok=True)
 
-                if sample_name not in seen_samples:
-                    sample_list.write(f"{sample_name}\n")
-                    seen_samples.add(sample_name)
+            if sample_name not in seen_samples:
+                if location not in sample_list:
+                    sample_list[location] = []
+                sample_list[location].append(sample_name)
+                seen_samples.add(sample_name)
 
-                output_filename = f"{sample_name}_{'1' if orient == 'R1' else '2'}.fastq"
-                output_path = os.path.join(sample_dir, output_filename)
+            output_filename = f"{sample_name}_{'1' if orient == 'R1' else '2'}.fastq"
+            output_path = os.path.join(sample_dir, output_filename)
 
-                with gzip.open(os.path.join(input_dir, filename), 'rb') as f_in:
-                    with open(output_path, 'wb') as f_out:
-                        shutil.copyfileobj(f_in, f_out)
+            with gzip.open(os.path.join(input_dir, filename), 'rb') as f_in:
+                with open(output_path, 'wb') as f_out:
+                    shutil.copyfileobj(f_in, f_out)
 
-                print(f"Extracted {filename} to {output_path}")
+            print(f"Extracted {filename} to {output_path}")
+
+    for location in sample_list:
+        output_filename = f"{sample_list_dir}/sample_list_{location}.txt"
+        with open(output_filename, 'w') as sl_out:
+            for sample_name in sample_list[location]:
+                sl_out.write(f"{sample_name}\n")
+        print(f"Written {len(sample_list[location])} sample names from location {location} to {output_filename}")
 
 
 def main():
     input_dir = "ARISE_data/raw_sequences"
     output_dir = "PROFUNGIS/samples"
-    sample_list = "PROFUNGIS/sample_list.txt"
+    sample_list = "PROFUNGIS"
 
     print("Verifying checksums")
     verify_checksum("ARISE_data/md5sum.txt", "ARISE_data")
