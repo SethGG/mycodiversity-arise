@@ -1,7 +1,7 @@
 # mycodiversity-arise
 This is a fork of the mycodiversity repository aimed at extending the PROFUNGIS pipeline to accept raw fungal ITS data from the Naturalis ARISE project (which is not retreived from the SRA). New scripts have been written for extracting the data to the correct file structure for the PROFUNGIS pipeline and several changes have been made to the PROFUNGIS pipeline in order to work with more up to date dependancies.
 
-## New scipts
+## New scripts
 - **extractARISEDATA.py**: This script requires the ARISE data to be present in the diretory called "ARISE_data". First the checksums for all the compressed reads are checked. The reads are then extracted in the "PROFUNGIS/samples" directory where every sample gets named by their unique NBCLAB identifier. Finally, sample list files are generated in the "PROFUNGIS" directory for each geographic location of the study samples (A and B). These sample lists can be used as input for the PROFUNGIS pipeline.
 
 ## Modifications to PROFUNGIS
