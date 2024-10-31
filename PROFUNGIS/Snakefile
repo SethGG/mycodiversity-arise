@@ -181,7 +181,7 @@ rule filter_contamination_filter:
          outputdir="{outdir}"
     shell:
         """
-        mkdir {wildcards.outdir}/BLAST/
+        mkdir -p {wildcards.outdir}/BLAST/
         bash excludeContamination.sh {input} {wildcards.outdir}/BLAST/{wildcards.sample}_blast.txt {output}
         """
 
