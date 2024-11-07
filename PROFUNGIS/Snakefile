@@ -58,7 +58,7 @@ rule merge_reads:
         if params.platform == "illumina":
             mergebool= functions.decideMerger(wildcards.sample, wildcards.outdir)
             if "MERGE" in mergebool: # If merger script gives green light
-                shellstring = "./deps/flash {input_r1} {input_r2} -c > {output} {overlap} -M 250 2>{log}".format(input_r1=input.R1, input_r2 = params.revreads, output=output, overlap=params.min_overlap, log=log)
+                shellstring = "./deps/flash {input_r1} {input_r2} -c > {output} {overlap} -M 275 2>{log}".format(input_r1=input.R1, input_r2 = params.revreads, output=output, overlap=params.min_overlap, log=log)
                 shell(shellstring)
             elif "FWD" in mergebool:
                 print("Your reverse reads are bad, I will only use your forward reads\nPlease note that the file name will still be 'merged' (\\\TODO v.03)")

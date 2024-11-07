@@ -10,6 +10,14 @@ the file can be appended in MDDB reference list and uploaded in the MDDB.
 
 """**********************************************************"""
 
+
+"""
+keep track of FASTA seq label for mapping
+"""
+
+
+
+
 import os
 import csv
 import pandas
@@ -17,27 +25,25 @@ import re
 from Bio import SeqIO
 import random
 from random import randint
-
-"""
-keep track of FASTA seq label for mapping
-"""
 def generate_header_track(recordtrackfile):
-    track_header = ['update_srr','seq_fasta','previous_seq','update_seq']
+    track_header = ['update_srr', 'seq_fasta', 'previous_seq', 'update_seq']
     with open(recordtrackfile, "a") as fp:
         writer = csv.writer(fp)
         writer.writerow(track_header)
     fp.close()
-    
-def save_record_track(trackfile, tracker): 
+
+
+def save_record_track(trackfile, tracker):
     with open(trackfile, 'a') as f:
-        tracker.to_csv(f, header = False, index = False)
+        tracker.to_csv(f, header=False, index=False)
     f.close()
 
+
 def Main(fastafiletest, generatepktest):
-    #df = pd.DataFrame(columns=list('A'))
-    #df.loc[0] = ['Hello']
-    #print (df)
-    print ("testing")
+    # df = pd.DataFrame(columns=list('A'))
+    # df.loc[0] = ['Hello']
+    # print (df)
+    print("testing")
     otu_id = []
     otu_sequence = []
     sequence_table = "refseq_table_zotus.csv"
@@ -52,13 +58,13 @@ def Main(fastafiletest, generatepktest):
 
     """
     parse FASTA file
-    """ 
+    """
     for record in SeqIO.parse(fastafiletest, 'fasta'):
         otu_id.append(record.id)
         otu_sequence.append(record.seq)
-   
-    its2 = 'ITS2'  #type of marker used
-    srr_filename = os.path.basename(fastafiletest)  #split the file pathname for fetching the SRR id
+
+    its2 = 'ITS2'  # type of marker used
+    srr_filename = os.path.basename(fastafiletest)  # split the file pathname for fetching the SRR id
     srr_label = os.path.splitext(srr_filename)[0]
     srr_output_parse = srr_label.split("_")
     srr_name = srr_output_parse[0]
@@ -67,18 +73,18 @@ def Main(fastafiletest, generatepktest):
     OPTION == "N" is CASE NO, then keep original IDs
     """
     if generatepktest == 'N':
-        header_columns = ["seq_id","sequence"]
+        header_columns = ["seq_id", "sequence"]
         with open(sequence_table, "a") as fp:
-            writer = csv.writer(fp) #upload original fasta file into csv
+            writer = csv.writer(fp)  # upload original fasta file into csv
             writer.writerow(header_columns)
             writer.writerows(record_list)
         fp.close()
         values_to_map = pandas.read_csv(sequence_table, header=0)
-        values_to_map.insert(loc=index_of_key_column, column = 'srr_name', value=srr_name)
+        values_to_map.insert(loc=index_of_key_column, column='srr_name', value=srr_name)
         map_zotu_srr = values_to_map.drop('sequence', axis=1)
-        map_zotu_srr.to_csv(mapping_table_zotu_srr, encoding='utf-8', index=False)       
+        map_zotu_srr.to_csv(mapping_table_zotu_srr, encoding='utf-8', index=False)
     elif generatepktest == 'Y':
-        header_columns_refseq_pk = ["otuseq_id","sequence"]
+        header_columns_refseq_pk = ["otuseq_id", "sequence"]
         """
         OPTION == "Y" is CASE YES: generate primary keys
         """
@@ -87,10 +93,10 @@ def Main(fastafiletest, generatepktest):
             writer.writerow(header_columns_refseq_pk)
             writer.writerows(record_list)
         generatedids = []
-        sample_suffix = 'ZOTU'  #suffix for pk
-        suffix_primarykey = 'MDDBOTU' #label for entity table "ref_zotus"
+        sample_suffix = 'ZOTU'  # suffix for pk
+        suffix_primarykey = 'MDDBOTU'  # label for entity table "ref_zotus"
         index_of_key_column = 0
-        
+
         """
         Replace original ZOTU id labels and replace with PKs
         """
@@ -104,11 +110,11 @@ def Main(fastafiletest, generatepktest):
         total_rows_in_input = len(zotu_labels_to_fetch)
         zotusequence_key_list = []
         for record in range(1, total_rows_in_input+1):
-            generate_primary_key = "0" * (6 - len(str(record))) + str(record)  
+            generate_primary_key = "0" * (6 - len(str(record))) + str(record)
             zotusequence_key_list.append(suffix_primarykey+str(generate_primary_key))
         append_keys = pandas.Series(zotusequence_key_list)
-        zotu_labels_to_fetch.insert(loc=index_of_key_column, column = 'refsequence_pk', value=append_keys)
-        zotu_labels_to_fetch.insert(loc=index_of_key_column, column = 'srr_name', value=srr_name)
+        zotu_labels_to_fetch.insert(loc=index_of_key_column, column='refsequence_pk', value=append_keys)
+        zotu_labels_to_fetch.insert(loc=index_of_key_column, column='srr_name', value=srr_name)
         """
         BACKUP: generate mapping for relation tables 
         copy the mapping srr_name | otu_label | pk assigned | sequence to new mapping file
@@ -120,30 +126,30 @@ def Main(fastafiletest, generatepktest):
         METADATA FILE extension
         Append attributes on csv file
         """
-        newupdate_remove_srrid.insert(loc=index_of_marker_column, column = 'marker_type', value=its2)
-        newupdate_remove_srrid.insert(loc=index_of_refseqlength_column, column = 'refseq_length', value=refseq_length)
+        newupdate_remove_srrid.insert(loc=index_of_marker_column, column='marker_type', value=its2)
+        newupdate_remove_srrid.insert(loc=index_of_refseqlength_column, column='refseq_length', value=refseq_length)
         newupdate_remove_srrid.to_csv(sequence_table_pk, encoding='utf-8', index=False)
         generate_header_track(record_track)
         amount_fasta_seq1 = newupdate_remove_srrid.shape[0]
         first_srr = [[srr_name, amount_fasta_seq1, 0, amount_fasta_seq1]]
         update_record = pandas.DataFrame(first_srr)
         save_record_track(record_track, update_record)
-        print ("complete")
-        
+        print("complete")
 
-#Interaction with the user: Ask the user the fasta file
+
+# Interaction with the user: Ask the user the fasta file
 if __name__ == '__main__':
     import sys
     try:
-        Filename = sys.argv[1]      #fasta file
-        Sequence = sys.argv[2]      #option generate primary keys
+        Filename = sys.argv[1]  # fasta file
+        Sequence = sys.argv[2]  # option generate primary keys
     except:
-        print ("Usage: CreateCsvFromFasta3.py <filename>.fa Y/N')")
-        print ("Please provide a fasta file followed by Y if you want primary keys, else N for keep original label names as ids")
+        print("Usage: CreateCsvFromFasta3.py <filename>.fa Y/N')")
+        print("Please provide a fasta file followed by Y if you want primary keys, else N for keep original label names as ids")
         raise SystemExit
     else:
-        if Sequence == "Y" or Sequence == "N" and len(sys.argv) == 3:   #check if value is provided 
-            Main(Filename, Sequence)    
+        if Sequence == "Y" or Sequence == "N" and len(sys.argv) == 3:  # check if value is provided
+            Main(Filename, Sequence)
         else:
-            print ("Please specify if you want to generate primary keys for your sequence.")
+            print("Please specify if you want to generate primary keys for your sequence.")
             raise SystemExit

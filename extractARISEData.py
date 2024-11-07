@@ -3,6 +3,7 @@ import re
 import gzip
 import shutil
 import os
+import csv
 
 
 def md5(file_path):
@@ -37,51 +38,48 @@ def verify_checksum(md5_file, directory):
         print("All files match their checksums.")
 
 
-def extract_and_organize(input_dir, output_dir, sample_list_dir):
-    pattern = re.compile(r"^e\d+?_(NBCLAB\d+?)_.+?_([A-Z])_.+?_(R[12])_.+?\.fastq\.gz$")
+def extract_and_organize(input_dir, output_dir, sample_list, sample_mapping):
+    pattern = re.compile(r"^e\d+?_(NBCLAB\d+?)_(S[123]|PC)_(\d+)?.+?_([A-Z])_.+?_(R[12])_.+?\.fastq\.gz$")
 
     seen_samples = set()
-    sample_list = {}
-    for filename in sorted(os.listdir(input_dir)):
-        match = pattern.match(filename)
-        if match:
-            sample_name, location, orient = match.groups()
+    sample_mapping_dir = os.path.dirname(sample_mapping)
+    os.makedirs(sample_mapping_dir, exist_ok=True)
+    with open(sample_list, 'w') as sl_out, open(sample_mapping, 'w') as sm_out:
+        csv_writer = csv.writer(sm_out)
+        csv_writer.writerow(['srr_name', 'plot', 'subplot', 'location'])
+        for filename in sorted(os.listdir(input_dir)):
+            match = pattern.match(filename)
+            if match:
+                sample_name, plot, subplot, location, orient = match.groups()
 
-            sample_dir = os.path.join(output_dir, sample_name)
-            os.makedirs(sample_dir, exist_ok=True)
+                sample_dir = os.path.join(output_dir, sample_name)
+                os.makedirs(sample_dir, exist_ok=True)
 
-            if sample_name not in seen_samples:
-                if location not in sample_list:
-                    sample_list[location] = []
-                sample_list[location].append(sample_name)
-                seen_samples.add(sample_name)
+                if sample_name not in seen_samples:
+                    sl_out.write(f"{sample_name}\n")
+                    csv_writer.writerow([sample_name, plot, subplot, location])
+                    seen_samples.add(sample_name)
 
-            output_filename = f"{sample_name}_{'1' if orient == 'R1' else '2'}.fastq"
-            output_path = os.path.join(sample_dir, output_filename)
+                output_filename = f"{sample_name}_{'1' if orient == 'R1' else '2'}.fastq"
+                output_path = os.path.join(sample_dir, output_filename)
 
-            with gzip.open(os.path.join(input_dir, filename), 'rb') as f_in:
-                with open(output_path, 'wb') as f_out:
-                    shutil.copyfileobj(f_in, f_out)
+                with gzip.open(os.path.join(input_dir, filename), 'rb') as f_in:
+                    with open(output_path, 'wb') as f_out:
+                        shutil.copyfileobj(f_in, f_out)
 
-            print(f"Extracted {filename} to {output_path}")
-
-    for location in sample_list:
-        output_filename = f"{sample_list_dir}/sample_list_{location}.txt"
-        with open(output_filename, 'w') as sl_out:
-            for sample_name in sample_list[location]:
-                sl_out.write(f"{sample_name}\n")
-        print(f"Written {len(sample_list[location])} sample names from location {location} to {output_filename}")
+                print(f"Extracted {filename} to {output_path}")
 
 
 def main():
     input_dir = "ARISE_data/raw_sequences"
     output_dir = "PROFUNGIS/samples"
-    sample_list = "PROFUNGIS"
+    sample_list = "PROFUNGIS/sample_list.txt"
+    sample_mapping = "output_tables/sample_mapping.csv"
 
     print("Verifying checksums")
     verify_checksum("ARISE_data/md5sum.txt", "ARISE_data")
 
-    extract_and_organize(input_dir, output_dir, sample_list)
+    extract_and_organize(input_dir, output_dir, sample_list, sample_mapping)
 
 
 if __name__ == "__main__":
