@@ -5,11 +5,11 @@ import csv
 from collections import defaultdict
 
 
-def main(input_dir):
+def main(input_dir, output_dir):
     pattern = re.compile(r"^(NBCLAB\d+?)_zotus_trunc_mapping.txt$")
-    with open("truncate_mapping.csv", "w") as tm_out, \
-            open("filter_mapping_full.csv", "w") as fmf_out, \
-            open("filter_mapping_trunc.csv", "w") as fmt_out:
+    with open(os.path.join(output_dir, "truncate_mapping.csv"), "w") as tm_out, \
+            open(os.path.join(output_dir, "filter_mapping_full.csv"), "w") as fmf_out, \
+            open(os.path.join(output_dir, "filter_mapping_trunc.csv"), "w") as fmt_out:
 
         csv_writer_tm = csv.writer(tm_out)
         csv_writer_tm.writerow(['srr_name', 'zotu_id', 'trunc_zotu_id'])
@@ -59,6 +59,7 @@ def main(input_dir):
 
 if __name__ == "__main__":
     input_dir = sys.argv[1]
-    output_dir = os.path.join("output_tables", input_dir)
+    output_dir = os.path.join("output_tables", os.path.basename(input_dir))
+    os.makedirs(output_dir, exist_ok=True)
 
-    main(input_dir)
+    main(input_dir, output_dir)
