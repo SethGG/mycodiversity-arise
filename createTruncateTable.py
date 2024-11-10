@@ -20,41 +20,51 @@ def main(input_dir, output_dir):
         csv_writer_fmt = csv.writer(fmt_out)
         csv_writer_fmt.writerow(['srr_name', 'zotu_id', 'passed_abun', 'passed_contam'])
 
+        srr_names = []
+
         for filename in sorted(os.listdir(f"{input_dir}/ZOTUS")):
             input_path = os.path.join(input_dir, "ZOTUS", filename)
             match = pattern.match(filename)
             if match:
                 srr_name = match.groups()[0]
-
-                suffix = ["", "_full"]
-                passed_abun = {s: defaultdict(bool) for s in suffix}
-                passed_contam = {s: defaultdict(bool) for s in suffix}
-                for s in suffix:
-                    abun_path = f"ZOTUS{s}/abundant/{srr_name}_zotutab_af.txt"
-                    contam_path = f"FINAL{s}/{srr_name}_zotutab_final.txt"
-                    abun = (abun_path, passed_abun)
-                    contam = (contam_path, passed_contam)
-                    for filter in (abun, contam):
-                        header = None
-                        with open(f"{input_dir}/{filter[0]}", "r") as f:
-                            for line in f:
-                                if header is None:
-                                    header = line
-                                else:
-                                    parts = line.strip().split()
-                                    zotu = parts[0]
-                                    filter[1][s][zotu] = True
+                srr_names.append(srr_name)
 
                 with open(input_path, "r") as f:
                     for line in f:
                         parts = line.strip().split()
                         zotu, cluster = parts[0], parts[1]
                         csv_writer_tm.writerow([srr_name, zotu, cluster])
-                        csv_writer_fmf.writerow([srr_name, zotu, passed_abun["_full"][zotu],
-                                                passed_contam["_full"][zotu]])
-                        if zotu == cluster:
-                            csv_writer_fmt.writerow([srr_name, zotu, passed_abun[""][zotu],
-                                                    passed_contam[""][zotu]])
+
+        suffix = {"": csv_writer_fmt, "_full": csv_writer_fmf}
+        for srr_name in srr_names:
+            passed_abun = {s: defaultdict(bool) for s in suffix}
+            passed_contam = {s: defaultdict(bool) for s in suffix}
+            for s in suffix:
+                abun_path = f"ZOTUS{s}/abundant/{srr_name}_zotutab_af.txt"
+                contam_path = f"FINAL{s}/{srr_name}_zotutab_final.txt"
+                abun = (abun_path, passed_abun)
+                contam = (contam_path, passed_contam)
+                for filter in (abun, contam):
+                    header = None
+                    with open(f"{input_dir}/{filter[0]}", "r") as f:
+                        for line in f:
+                            if header is None:
+                                header = line
+                            else:
+                                parts = line.strip().split()
+                                zotu = parts[0]
+                                filter[1][s][zotu] = True
+
+                zotu_path = f"ZOTUS{s}/{srr_name}_zotutab.txt"
+                header = None
+                with open(f"{input_dir}/{zotu_path}", "r") as f:
+                    for line in f:
+                        if header is None:
+                            header = line
+                        else:
+                            parts = line.strip().split()
+                            zotu = parts[0]
+                            suffix[s].writerow([srr_name, zotu, passed_abun[s][zotu], passed_contam[s][zotu]])
 
 
 if __name__ == "__main__":
