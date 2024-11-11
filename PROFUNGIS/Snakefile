@@ -196,8 +196,8 @@ rule filter_zotutab:
         "{outdir}/log/ZOTUS/{sample}_error.log"
     shell:
         """
-        grep ">" {input.zotus} | sed 's/>//g' > tmp
+        grep ">" {input.zotus} | sed 's/>//g' > {wildcards.sample}_tmp
         head -1 {input.zotutab} > {output}
-        grep -f tmp {input.zotutab} >> {output}
-        rm tmp
+        grep -f {wildcards.sample}_tmp {input.zotutab} >> {output}
+        rm {wildcards.sample}_tmp
         """

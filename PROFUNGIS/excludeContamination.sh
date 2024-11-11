@@ -24,5 +24,4 @@ egrep "k__F" ${OUTPUT} | cut -f 1 | sort | uniq > ${NAMES}
 ./deps/faSomeRecords ${TEMPOUT} ${NAMES_CONTAM} ${OUTZOTU} -exclude
 
 # Remove temp files
-#rm names.tmp tempout.tmp names_contam.tmp
-rm ${TEMPOUT}
+rm ${NAMES} ${TEMPOUT} ${NAMES_CONTAM} 

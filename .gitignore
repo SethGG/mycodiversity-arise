@@ -2,7 +2,7 @@ ARISE_data
 PROFUNGIS/samples
 PROFUNGIS/config*.yml
 PROFUNGIS/sample_list*.txt
-PROFUNGIS/*_output
+PROFUNGIS/*_output*
 PROFUNGIS/log.txt
 PROFUNGIS_post_processing/*.csv
 taxonomic_assignment/*.csv
