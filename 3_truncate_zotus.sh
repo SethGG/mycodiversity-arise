@@ -25,6 +25,3 @@ done
 
 cd PROFUNGIS
 snakemake --cores 4 --configfile $outdir/config.yml
-cd ..
-
-python createTruncateTable.py $outdir

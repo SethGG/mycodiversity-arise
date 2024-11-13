@@ -24,7 +24,7 @@ def main(input_dir, output_dir):
 
     with open(os.path.join(output_dir, "truncate_mapping.csv"), "w") as tm_out, \
             open(os.path.join(output_dir, "filter_mapping_full.csv"), "w") as fmf_out, \
-            open(os.path.join(output_dir, "filter_mapping_trunc.csv"), "w") as fmt_out:
+            open(os.path.join(output_dir, "filter_mapping.csv"), "w") as fmt_out:
 
         csv_writer_tm = csv.writer(tm_out)
         csv_writer_tm.writerow(['srr_name', 'zotu_id', 'trunc_zotu_id', 'passed_trunc'])

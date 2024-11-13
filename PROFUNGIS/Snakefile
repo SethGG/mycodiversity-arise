@@ -198,6 +198,6 @@ rule filter_zotutab:
         """
         grep ">" {input.zotus} | sed 's/>//g' > {wildcards.sample}_tmp
         head -1 {input.zotutab} > {output}
-        grep -f {wildcards.sample}_tmp {input.zotutab} >> {output}
+        grep -w -f {wildcards.sample}_tmp {input.zotutab} >> {output}
         rm {wildcards.sample}_tmp
         """
