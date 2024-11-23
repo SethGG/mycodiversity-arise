@@ -8,6 +8,7 @@ PROFUNGIS_post_processing/*.csv
 taxonomic_assignment/*.csv
 taxonomic_assignment/*.txt
 taxonomic_assignment/*.fasta
+taxonomic_assignment/Unite/*.fasta
 output_tables
 __pycache__
 .venv
