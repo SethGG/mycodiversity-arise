@@ -2,4 +2,4 @@
 
 input_dir="$(realpath $1)"
 cd taxonomic_assignment
-./run_ublast.sh $input_dir
+./run_usearch.sh $input_dir
