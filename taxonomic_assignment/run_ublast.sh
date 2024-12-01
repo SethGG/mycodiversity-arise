@@ -26,13 +26,13 @@ for input_refseq in $input_dir/refseq_table_pk*.csv; do
         split(fields[5], taxonomy, ";")
 
         # Extract taxonomic levels by removing "k__", "p__", etc.
-        kingdom = substr(taxonomy[1], 4)
-        phylum = substr(taxonomy[2], 4)
-        class = substr(taxonomy[3], 4)
-        order = substr(taxonomy[4], 4)
-        family = substr(taxonomy[5], 4)
-        genus = substr(taxonomy[6], 4)
-        species = substr(taxonomy[7], 4)
+        kingdom = taxonomy[1]
+        phylum = taxonomy[2]
+        class = taxonomy[3]
+        order = taxonomy[4]
+        family = taxonomy[5]
+        genus = taxonomy[6]
+        species = taxonomy[7]
 
         # Print CSV row
         print refsequence_pk "," identity "," unite_id "," kingdom "," phylum "," class "," order "," family "," genus "," species
