@@ -9,6 +9,9 @@ taxonomic_assignment/*.csv
 taxonomic_assignment/*.txt
 taxonomic_assignment/*.fasta
 taxonomic_assignment/Unite/*.fasta
+phylogenetic_placement/query_files
+phylogenetic_placement/query_align_files
+phylogenetic_placement/query_placement_files
 output_tables
 __pycache__
 .venv
