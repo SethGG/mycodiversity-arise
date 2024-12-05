@@ -21,6 +21,6 @@ for input_query_file in $query_dir/*.fasta; do
     else
         echo -e "\n${RED}GENERATING TREE FOR CHUNK: $base_name${NC}\n"
         rm $regen_trees_dir/*.${base_name_num}.out
-        standard-RAxML-8.2.13/raxmlHPC-PTHREADS-SSE3 -s $chunk_dir/$base_name.fasta -n $base_name_num.out -w $regen_trees_dir_abs -m GTRCAT -p 12345 -T 6 -o OUTGROUP
+        standard-RAxML-8.2.13/raxmlHPC-PTHREADS-SSE3 -s $chunk_dir/$base_name.fasta -n $base_name_num.out -w $regen_trees_dir_abs -m GTRCAT -p 12345 -T 4 -o OUTGROUP
     fi
 done

@@ -65,7 +65,7 @@ standard-RAxML-8.2.13/raxmlHPC-PTHREADS-SSE3 -s MDDB-phylogeny/l0.2_s3_4_1500_o1
 Partition: 0 with name: No Name Provided
 Base frequencies: 0.225 0.254 0.235 0.286 
 
-Inference[0]: Time 821.385551 CAT-based likelihood -134635.448539, best rearrangement setting 15
+Inference[0]: Time 721.195833 CAT-based likelihood -134635.448539, best rearrangement setting 15
 alpha[0]: 1.000000 rates[0] ac ag at cg ct gt: 1.366010 3.998836 1.236519 0.848351 4.925195 1.000000 
 
 
@@ -75,4 +75,11 @@ Inference[0] final GAMMA-based Likelihood: -135753.828087 tree written to file /
 
 
 Starting final GAMMA-based thorough Optimization on tree 0 likelihood -135753.828087 .... 
+
+Final GAMMA-based Score of best tree -135716.511534
+
+Program execution info written to /home/dzee/Documents/Studie/Bachelorklas/mycodiversity-arise/phylogenetic_placement/regen_trees/RAxML_info.051.out
+Best-scoring ML tree written to: /home/dzee/Documents/Studie/Bachelorklas/mycodiversity-arise/phylogenetic_placement/regen_trees/RAxML_bestTree.051.out
+
+Overall execution time: 1024.026875 secs or 0.284452 hours or 0.011852 days
 
