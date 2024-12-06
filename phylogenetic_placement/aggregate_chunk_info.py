@@ -11,8 +11,8 @@ def aggregate_chunk_info(group):
         "num_hits": len(group),
         "avg_identity": group["identity"].mean(),
         "num_chunks": len(chunk_counts),
-        "majority_chunk": majority_chunk,
-        "majority_chunk_count": majority_count
+        "maj_chunk": majority_chunk,
+        "maj_chunk_count": majority_count
     })
 
 

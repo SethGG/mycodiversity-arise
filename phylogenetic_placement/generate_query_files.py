@@ -23,14 +23,14 @@ if __name__ == "__main__":
     df_trunc['refsequence_pk'] = "trunc_" + df_trunc["refsequence_pk"]
 
     df_all = pd.concat(
-        [df_full[['refsequence_pk', 'sequence', 'majority_chunk']],
-         df_trunc[['refsequence_pk', 'sequence', 'majority_chunk']]],
+        [df_full[['refsequence_pk', 'sequence', 'maj_chunk']],
+         df_trunc[['refsequence_pk', 'sequence', 'maj_chunk']]],
     )
 
     output_dir = "query_files"
     os.makedirs(output_dir, exist_ok=True)
 
-    for chunk_name, group in df_all.groupby('majority_chunk'):
+    for chunk_name, group in df_all.groupby('maj_chunk'):
         fasta_file = os.path.join(output_dir, f"{chunk_name}.fasta")
 
         with open(fasta_file, 'w') as f:
