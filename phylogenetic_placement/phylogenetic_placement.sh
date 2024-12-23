@@ -11,7 +11,6 @@ tree_dir=regen_trees
 refpkg_dir=refpkg_files
 
 mkdir -p $query_align_dir
-mkdir -p $query_placement_dir
 mkdir -p $refpkg_dir
 mkdir -p $pplacer_out_dir
 
@@ -24,8 +23,8 @@ for input_query_file in $query_dir/*.fasta; do
     taxit create -l its -P $refpkg_dir/$base_name.refpkg --aln-fasta $chunk_dir/$base_name.fasta --tree-stats $tree_dir/RAxML_info.$base_name_num.out --tree-file $tree_dir/RAxML_bestTree.$base_name_num.out
     mafft-linux64/mafft.bat --addfragments $input_query_file --keeplength $chunk_dir/$base_name.fasta > $query_align_dir/$base_name.fasta
     pplacer-Linux-v1.1.alpha19/pplacer -c $refpkg_dir/$base_name.refpkg $query_align_dir/$base_name.fasta -o $pplacer_out_dir/$base_name.jplace
-    pplacer-Linux-v1.1.alpha19/guppy to_csv $pplacer_out_dir/$base_name.jplace -o $pplacer_out_dir/$base_name.csv
-    pplacer-Linux-v1.1.alpha19/guppy tog $pplacer_out_dir/$base_name.jplace -o $pplacer_out_dir/$base_name.tog.tre
+    #pplacer-Linux-v1.1.alpha19/guppy to_csv $pplacer_out_dir/$base_name.jplace -o $pplacer_out_dir/$base_name.csv
+    #pplacer-Linux-v1.1.alpha19/guppy tog $pplacer_out_dir/$base_name.jplace -o $pplacer_out_dir/$base_name.tog.tre
 done
 
 rm -r $query_align_dir

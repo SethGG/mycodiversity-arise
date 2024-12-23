@@ -1,0 +1,33 @@
+\begin{tabular}{lllrr}
+\toprule
+ &  &  & refsequence\_pk\_full & UNITE\_id\_full \\
+UNITE_id_equal & tax_equal_lowest & tax_change_below_equal &  &  \\
+\midrule
+True & species & none & 1285 & 781 \\
+\cline{1-5} \cline{2-5}
+\multirow[t]{17}{*}{False} & species & none & 36 & 33 \\
+\cline{2-5}
+ & \multirow[t]{2}{*}{genus} & uniden->uniden & 6 & 5 \\
+ &  & species->species & 132 & 95 \\
+\cline{2-5}
+ & \multirow[t]{3}{*}{family} & uniden->genus & 3 & 2 \\
+ &  & genus->uniden & 10 & 10 \\
+ &  & genus->genus & 36 & 26 \\
+\cline{2-5}
+ & \multirow[t]{3}{*}{order} & uniden->family & 12 & 5 \\
+ &  & family->uniden & 16 & 13 \\
+ &  & family->family & 10 & 7 \\
+\cline{2-5}
+ & \multirow[t]{3}{*}{class} & uniden->order & 4 & 3 \\
+ &  & order->uniden & 1 & 1 \\
+ &  & order->order & 3 & 3 \\
+\cline{2-5}
+ & \multirow[t]{3}{*}{phylum} & uniden->uniden & 1 & 1 \\
+ &  & uniden->class & 10 & 2 \\
+ &  & class->uniden & 5 & 4 \\
+\cline{2-5}
+ & \multirow[t]{2}{*}{none} & uniden->phylum & 5 & 3 \\
+ &  & phylum->uniden & 6 & 4 \\
+\cline{1-5} \cline{2-5}
+\bottomrule
+\end{tabular}
