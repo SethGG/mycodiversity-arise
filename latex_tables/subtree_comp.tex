@@ -1,0 +1,16 @@
+\begin{tabular}{llllrrrrr}
+\toprule
+ &  &  &  & refsequence\_pk\_full & num\_chunks\_full & num\_chunks\_trunc & maj\_chunk\_count\_full & maj\_chunk\_count\_trunc \\
+ &  &  &  & count & median & median & median & median \\
+chunk_missing_full & chunk_missing_trunc & maj_chunk_equal & maj_split_rank_equal_either &  &  &  &  &  \\
+\midrule
+\multirow[t]{4}{*}{False} & \multirow[t]{4}{*}{False} & \multirow[t]{2}{*}{False} & False & 3 & 5.000000 & 5.000000 & 3.000000 & 4.000000 \\
+ &  &  & True & 1 & 3.000000 & 3.000000 & 5.000000 & 5.000000 \\
+\cline{3-9}
+ &  & \multirow[t]{2}{*}{True} & False & 366 & 3.000000 & 3.000000 & 7.000000 & 7.000000 \\
+ &  &  & True & 1080 & 1.000000 & 1.000000 & 10.000000 & 10.000000 \\
+\cline{1-9} \cline{2-9} \cline{3-9}
+True & True & False & False & 131 & NaN & NaN & NaN & NaN \\
+\cline{1-9} \cline{2-9} \cline{3-9}
+\bottomrule
+\end{tabular}

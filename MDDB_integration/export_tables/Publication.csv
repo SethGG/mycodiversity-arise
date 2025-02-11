@@ -1,0 +1,26 @@
+journal_pk,article_pk,article_journal_published_converted,article_year,publish_language,journal_volume,journal_issue,medline_pagination,article_copyright
+MDDBJOU000001,MDDBART000001,2014-11-28,2014,eng,346,6213,1256688,"Copyright © 2014, American Association for the Advancement of Science."
+MDDBJOU000001,MDDBART000004,2013-03-29,2013,eng,339,6127,1615-8,
+MDDBJOU000001,MDDBART000012,2015-08-28,2015,eng,349,6251,970-3,"Copyright © 2015, American Association for the Advancement of Science."
+MDDBJOU000002,MDDBART000002,2012-07-27,2012,eng,82,3,666-77,© 2012 Federation of European Microbiological Societies. Published by Blackwell Publishing Ltd. All rights reserved.
+MDDBJOU000002,MDDBART000011,2017-05-01,2017,eng,93,5,,"© FEMS 2017. All rights reserved. For permissions, please e-mail: journals.permissions@oup.com."
+MDDBJOU000002,MDDBART000024,2016-07-12,2016,eng,92,10,,"© FEMS 2016. All rights reserved. For permissions, please e-mail: journals.permissions@oup.com."
+MDDBJOU000003,MDDBART000003,2015-02-04,2015,eng,206,3,1145-55,© 2015 The Authors. New Phytologist © 2015 New Phytologist Trust.
+MDDBJOU000003,MDDBART000013,2016-10-14,2016,eng,213,3,1418-1427,© 2016 The Authors. New Phytologist © 2016 New Phytologist Trust.
+MDDBJOU000003,MDDBART000017,2014-12-31,2014,eng,205,4,1565-76,© 2014 The Authors. New Phytologist © 2014 New Phytologist Trust.
+MDDBJOU000003,MDDBART000018,2013-10-01,2013,eng,201,2,623-35,© 2013 The Authors. New Phytologist © 2013 New Phytologist Trust.
+MDDBJOU000004,MDDBART000005,2013-01-25,2013,eng,13,2,218-24,© 2013 Blackwell Publishing Ltd.
+MDDBJOU000005,MDDBART000006,2013-02-21,2013,eng,7,7,1262-73,
+MDDBJOU000005,MDDBART000016,2013-03-14,2013,eng,7,7,1424-33,
+MDDBJOU000006,MDDBART000007,2010-11-03,2010,eng,19,24,5555-65,"© 2010 Her Majesty the Queen in Right of Canada, as represented by the Minister of Agriculture and Agri-Food Canada."
+MDDBJOU000007,MDDBART000008,2010-06-28,2010,eng,107,31,13748-53,
+MDDBJOU000007,MDDBART000015,2015-09-01,2015,eng,112,35,10967-72,
+MDDBJOU000007,MDDBART000025,2012-08-07,2012,eng,109,32,13022-7,
+MDDBJOU000008,MDDBART000009,2018-03-12,2018,eng,8,1,2045-2322,
+MDDBJOU000009,MDDBART000010,2017-03-09,2017,eng,26,9,2563-2575,© 2017 John Wiley & Sons Ltd.
+MDDBJOU000010,MDDBART000014,2017-04-22,2017,eng,7,10,2045-7758,
+MDDBJOU000011,MDDBART000019,2005-04-15,2005,eng,71,9,5544-50,
+MDDBJOU000012,MDDBART000020,2014-06-16,2014,eng,9,6,e97629,
+MDDBJOU000012,MDDBART000023,2014-02-28,2014,eng,9,2,e90234,
+MDDBJOU000013,MDDBART000021,2015-06-02,2015,eng,18,8,807-16,© 2015 John Wiley & Sons Ltd/CNRS.
+MDDBJOU000014,MDDBART000022,2017-02-08,2017,eng,284,1848,,© 2017 The Author(s).
